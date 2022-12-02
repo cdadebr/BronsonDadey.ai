@@ -1,0 +1,14 @@
+{
+  "hash": "260f9164783a5cf8d820718621ef9e0c",
+  "result": {
+    "markdown": "---\ntitle: \"Using Paperspace to Upload Models to HuggingFace\"\nauthor: \"Bronson Dadey\"\ndate: \"2022-12-02\"\ncategories: [fastai]\nimage: \"image.jpg\"\n---\n\n\nThis is a post with executable code.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
