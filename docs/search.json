@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "BronsonDadey.ai",
     "section": "",
-    "text": "Post With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nDec 2, 2022\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nUsing Paperspace to Upload Models to HuggingFace\n\n\n\n\n\n\n\nfastai\n\n\n\n\n\n\n\n\n\n\n\nDec 2, 2022\n\n\nBronson Dadey\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nNov 29, 2022\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+    "text": "How to Easily Upload Models from Paperspace to Hugging Face Spaces\n\n\n\n\n\n\n\nfastai\n\n\n\n\n\n\n\n\n\n\n\nDec 22, 2022\n\n\nBronson Dadey\n\n\n\n\n\n\n  \n\n\n\n\nPost With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nDec 2, 2022\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nNov 29, 2022\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/post-with-code/index.html",
@@ -23,9 +23,9 @@
   {
     "objectID": "posts/uploading-models-to-huggingface-from-paperspace/index.html",
     "href": "posts/uploading-models-to-huggingface-from-paperspace/index.html",
-    "title": "Using Paperspace to Upload Models to HuggingFace",
+    "title": "How to Easily Upload Models from Paperspace to Hugging Face Spaces",
     "section": "",
-    "text": "This is a post with executable code.\n\n1 + 1\n\n[1] 2"
+    "text": "Need help uploading your Paperspace model to Hugging Face Spaces? This guide will show you how simple it is, with step-by-step instructions for fast.ai students and fast.ai library users."
   },
   {
     "objectID": "posts/welcome/index.html",
@@ -33,5 +33,96 @@
     "title": "Welcome To My Blog",
     "section": "",
     "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
+  },
+  {
+    "objectID": "posts/uploading-models-to-huggingface-from-paperspace/index.html#clone-the-hugging-face-spaces-repo",
+    "href": "posts/uploading-models-to-huggingface-from-paperspace/index.html#clone-the-hugging-face-spaces-repo",
+    "title": "How to Easily Upload Models from Paperspace to Hugging Face Spaces",
+    "section": "Clone the Hugging Face Spaces repo",
+    "text": "Clone the Hugging Face Spaces repo\nHead over to your Paperspace tab and click on the .ipynb file used to code your model. You can clone the Hugging Face Spaces repo using your Hugging Face login details. Side note: copy and paste everything after the # in the following code blocks.\n\n#!git clone https://\"username\"/\"password\"@huggingface.co/spaces/cdadebr/\"model_repo\"\n\nA folder should appear in your Paperspace files directory with the same name as your Hugging Face space:"
+  },
+  {
+    "objectID": "posts/uploading-models-to-huggingface-from-paperspace/index.html#export-your-paperspace-model",
+    "href": "posts/uploading-models-to-huggingface-from-paperspace/index.html#export-your-paperspace-model",
+    "title": "How to Easily Upload Models from Paperspace to Hugging Face Spaces",
+    "section": "Export your Paperspace model",
+    "text": "Export your Paperspace model\nCreate a Path variable for your cloned repository folder. Use the .export method on your Learner variable and pass the path for your model as an argument using the Path variable. If you’re following fast.ai convention, your Learner should be named learn:\n\n#model_path = Path('/notebooks/model_repo')\n#learn.export(model_path/'model.pkl')"
+  },
+  {
+    "objectID": "posts/uploading-models-to-huggingface-from-paperspace/index.html#create-an-app.py-and-requirements.txt-file-in-your-cloned-repo",
+    "href": "posts/uploading-models-to-huggingface-from-paperspace/index.html#create-an-app.py-and-requirements.txt-file-in-your-cloned-repo",
+    "title": "How to Easily Upload Models from Paperspace to Hugging Face Spaces",
+    "section": "Create an app.py and requirements.txt file in your cloned repo",
+    "text": "Create an app.py and requirements.txt file in your cloned repo\n\n#cd model_tutorial\n#!touch app.py\n#!touch requirements.txt"
+  },
+  {
+    "objectID": "posts/uploading-models-to-huggingface-from-paperspace/index.html#edit-the-following-code-to-suit-your-model-and-paste-it-to-app.py",
+    "href": "posts/uploading-models-to-huggingface-from-paperspace/index.html#edit-the-following-code-to-suit-your-model-and-paste-it-to-app.py",
+    "title": "How to Easily Upload Models from Paperspace to Hugging Face Spaces",
+    "section": "Edit the following code to suit your model and paste it to app.py",
+    "text": "Edit the following code to suit your model and paste it to app.py\n\n#import gradio as gr\n#from fastai.vision.all import *\n#import skimage\n\n#def get_y(o): return [parent_label(o)]\n\n#learn = load_learner('model.pkl')\n\n#labels = learn.dls.vocab\n\n#def predict(img):\n    #img = PILImage.create(img)\n    #pred,pred_idx,probs = learn.predict(img)\n    #return {labels[i]: float(probs[i]) for i in range(len(labels))}\n\n#title = \"Insert Your Model Title\"\n#description = \"Provide a Description of What Your Model Does\"\n#interpretation='default'\n#enable_queue=True\n\n#gr.Interface(fn=predict,inputs=gr.inputs.Image(shape=(512, 512)),outputs=gr.outputs.Label(num_top_classes=3),title=title,description=description,interpretation=interpretation,enable_queue=enable_queue).launch()"
+  },
+  {
+    "objectID": "posts/uploading-models-to-huggingface-from-paperspace/index.html#paste-the-following-code-to-requirements.txt",
+    "href": "posts/uploading-models-to-huggingface-from-paperspace/index.html#paste-the-following-code-to-requirements.txt",
+    "title": "How to Easily Upload Models from Paperspace to Hugging Face Spaces",
+    "section": "Paste the following code to requirements.txt",
+    "text": "Paste the following code to requirements.txt\n\n#fastai\n#scikit-image"
+  },
+  {
+    "objectID": "posts/uploading-models-to-huggingface-from-paperspace/index.html#log-into-git",
+    "href": "posts/uploading-models-to-huggingface-from-paperspace/index.html#log-into-git",
+    "title": "How to Easily Upload Models from Paperspace to Hugging Face Spaces",
+    "section": "Log into git",
+    "text": "Log into git\nNavigate back to your .ipynb file and input these !git commands (remember to change the email address, username, and password to your account details):\n\n#!git config --global user.email \"email@hotmail.com\"\n#!git config --global user.name \"username\"\n#!git config --global user.password \"password\""
+  },
+  {
+    "objectID": "posts/uploading-models-to-huggingface-from-paperspace/index.html#push-your-edited-cloned-repo-folder-to-hugging-face",
+    "href": "posts/uploading-models-to-huggingface-from-paperspace/index.html#push-your-edited-cloned-repo-folder-to-hugging-face",
+    "title": "How to Easily Upload Models from Paperspace to Hugging Face Spaces",
+    "section": "Push your edited cloned repo folder to Hugging Face",
+    "text": "Push your edited cloned repo folder to Hugging Face\n\n#!git add /notebooks/model_tutorial\n#!git commit -m \"Add application file\"\n#!git push\n\nAnd that should be all you need to do! It’s important to make sure that the current directory you’re working from is the cloned repo folder, before you decided to push anything to your HuggingFace space. You can check which directory you’re currently in using ls - cd repo_path"
+  },
+  {
+    "objectID": "posts/uploading-models-to-huggingface-from-paperspace/index.html#create-a-space-on-hugging-face-spaces",
+    "href": "posts/uploading-models-to-huggingface-from-paperspace/index.html#create-a-space-on-hugging-face-spaces",
+    "title": "How to Easily Upload Models from Paperspace to Hugging Face Spaces",
+    "section": "Create a Space on Hugging Face Spaces",
+    "text": "Create a Space on Hugging Face Spaces\nTo create a new Hugging Face Space, click on the ‘Spaces’ navigation header to access the Spaces homepage. Then, click on the “Create new Space” button highlighted in the image below:\n\nCopy these options and click “Create Space”:\n\nYour space is now all set up! It should look something like this:"
+  },
+  {
+    "objectID": "posts/uploading-models-to-huggingface-from-paperspace/index.html#clone-the-hugging-face-spaces-repository",
+    "href": "posts/uploading-models-to-huggingface-from-paperspace/index.html#clone-the-hugging-face-spaces-repository",
+    "title": "How to Easily Upload Models from Paperspace to Hugging Face Spaces",
+    "section": "Clone the Hugging Face Spaces repository",
+    "text": "Clone the Hugging Face Spaces repository\nHead over to your Paperspace tab and click on the .ipynb file used to code your model. Use the following !git command to clone the repository (be sure to edit in your Hugging Face login details):\nSide note: copy and paste everything after # in the following code blocks.\n\n#!git clone https://\"username\"/\"password\"@huggingface.co/spaces/cdadebr/\"model_repo\"\n\nA folder should appear in your Paperspace files directory with the same name as your Hugging Face space:"
+  },
+  {
+    "objectID": "posts/uploading-models-to-huggingface-from-paperspace/index.html#create-an-app.py-and-requirements.txt-file-in-your-cloned-repository",
+    "href": "posts/uploading-models-to-huggingface-from-paperspace/index.html#create-an-app.py-and-requirements.txt-file-in-your-cloned-repository",
+    "title": "How to Easily Upload Models from Paperspace to Hugging Face Spaces",
+    "section": "Create an app.py and requirements.txt file in your cloned repository",
+    "text": "Create an app.py and requirements.txt file in your cloned repository\nChange the current directory on your Paperspace machine to the Hugging Face cloned repository using the cd command, followed by the path to the repository. Use the !touch command to create the app.py and requirements.txt files. Alternatively, you can navigate to the cloned repository in the ‘Files’ tab and manually create the app.py and requirements.txt files by clicking on the ‘New File’ icon and entering the desired file names:\n\n#cd model_tutorial\n#!touch app.py\n#!touch requirements.txt"
+  },
+  {
+    "objectID": "posts/uploading-models-to-huggingface-from-paperspace/index.html#modify-and-add-the-following-code-to-app.py",
+    "href": "posts/uploading-models-to-huggingface-from-paperspace/index.html#modify-and-add-the-following-code-to-app.py",
+    "title": "How to Easily Upload Models from Paperspace to Hugging Face Spaces",
+    "section": "Modify and add the following code to app.py",
+    "text": "Modify and add the following code to app.py\nThe following code was adapted from Tanishq Abraham’s tutorial “Gradio + Hugging Face Spaces” (https://tmabraham.github.io/blog/gradio_hf_spaces_tutorial). Make sure to edit the variables to fit the specifics of your model before pasting it. Credit goes to Tanishq Abraham for the original code.\n\n#import gradio as gr\n#from fastai.vision.all import *\n#import skimage\n\n#def get_y(o): return [parent_label(o)]\n\n#learn = load_learner('model.pkl')\n\n#labels = learn.dls.vocab\n\n#def predict(img):\n    #img = PILImage.create(img)\n    #pred,pred_idx,probs = learn.predict(img)\n    #return {labels[i]: float(probs[i]) for i in range(len(labels))}\n\n#title = \"Insert Your Model Title\"\n#description = \"Provide a Description of What Your Model Does\"\n#interpretation='default'\n#enable_queue=True\n\n#gr.Interface(fn=predict,inputs=gr.inputs.Image(shape=(512, 512)),outputs=gr.outputs.Label(num_top_classes=3),title=title,description=description,interpretation=interpretation,enable_queue=enable_queue).launch()"
+  },
+  {
+    "objectID": "posts/uploading-models-to-huggingface-from-paperspace/index.html#add-the-following-code-to-requirements.txt",
+    "href": "posts/uploading-models-to-huggingface-from-paperspace/index.html#add-the-following-code-to-requirements.txt",
+    "title": "How to Easily Upload Models from Paperspace to Hugging Face Spaces",
+    "section": "Add the following code to requirements.txt",
+    "text": "Add the following code to requirements.txt\nNavigate to requirements.txt in the cloned repository and paste the following code:\n\n#fastai\n#scikit-image"
+  },
+  {
+    "objectID": "posts/uploading-models-to-huggingface-from-paperspace/index.html#push-your-paperspace-cloned-repository-folder-to-hugging-face",
+    "href": "posts/uploading-models-to-huggingface-from-paperspace/index.html#push-your-paperspace-cloned-repository-folder-to-hugging-face",
+    "title": "How to Easily Upload Models from Paperspace to Hugging Face Spaces",
+    "section": "Push your Paperspace cloned repository folder to Hugging Face",
+    "text": "Push your Paperspace cloned repository folder to Hugging Face\nBefore pushing anything to your Hugging Face space, ensure that the current directory you are working from is the cloned repository folder. You can check which directory you’re currently in using ls. If you’re in the correct directory, input these !git commands to upload your Paperspace model to your Hugging Face space:\n\n#!git add /notebooks/model_tutorial\n#!git commit -m \"Add application file\"\n#!git push\n\nAnd that’s it! You’ll need to wait a few minutes for Hugging Face to build the Gradio web app but after that, your model should be live on Hugging Face and available for anyone to use!"
   }
 ]

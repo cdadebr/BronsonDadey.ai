@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Bronson Dadey">
-<meta name="dcterms.date" content="2022-12-02">
+<meta name="dcterms.date" content="2022-12-22">
 
-<title>BronsonDadey.ai - Using Paperspace to Upload Models to HuggingFace</title>
+<title>BronsonDadey.ai - How to Easily Upload Models from Paperspace to Hugging Face Spaces</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -168,7 +168,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Using Paperspace to Upload Models to HuggingFace</h1>
+      <h1 class="title">How to Easily Upload Models from Paperspace to Hugging Face Spaces</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">fastai</div>
               </div>
@@ -188,7 +188,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">December 2, 2022</p>
+        <p class="date">December 22, 2022</p>
       </div>
     </div>
     
@@ -206,15 +206,103 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<p>This is a post with executable code.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Need help uploading your Paperspace model to Hugging Face Spaces? This guide will show you how simple it is, with step-by-step instructions for fast.ai students and fast.ai library users.</p>
+</section>
+<section id="create-a-space-on-hugging-face-spaces" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-space-on-hugging-face-spaces">Create a Space on Hugging Face Spaces</h2>
+<p>To create a new Hugging Face Space, click on the ‘Spaces’ navigation header to access the Spaces homepage. Then, click on the “Create new Space” button highlighted in the image below:</p>
+<p><img src="images/Step 1.png" class="img-fluid" width="1200"></p>
+<p>Copy these options and click “Create Space”:</p>
+<p><img src="images/Step 1(1).png" class="img-fluid" width="1200"></p>
+<p>Your space is now all set up! It should look something like this:</p>
+<p><img src="images/Step 1(2).png" class="img-fluid"></p>
+</section>
+<section id="clone-the-hugging-face-spaces-repository" class="level2">
+<h2 class="anchored" data-anchor-id="clone-the-hugging-face-spaces-repository">Clone the Hugging Face Spaces repository</h2>
+<p>Head over to your Paperspace tab and click on the <code>.ipynb</code> file used to code your model. Use the following <code>!git</code> command to clone the repository (be sure to edit in your Hugging Face login details):</p>
+<p>Side note: copy and paste everything after <code>#</code> in the following code blocks.</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!git clone https://"username"/"password"@huggingface.co/spaces/cdadebr/"model_repo"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>A folder should appear in your Paperspace files directory with the same name as your Hugging Face space:</p>
+<p><img src="images/Step 3-03.png" class="img-fluid"></p>
+</section>
+<section id="export-your-paperspace-model" class="level2">
+<h2 class="anchored" data-anchor-id="export-your-paperspace-model">Export your Paperspace model</h2>
+<p>Create a <code>Path</code> variable for your cloned repository folder. Use the <code>.export</code> method on your <code>Learner</code> variable and pass the path for your model as an argument using the <code>Path</code> variable. If you’re following fast.ai convention, your <code>Learner</code> should be named <code>learn</code>:</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#model_path = Path('/notebooks/model_repo')</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#learn.export(model_path/'model.pkl')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="create-an-app.py-and-requirements.txt-file-in-your-cloned-repository" class="level2">
+<h2 class="anchored" data-anchor-id="create-an-app.py-and-requirements.txt-file-in-your-cloned-repository">Create an <code>app.py</code> and <code>requirements.txt</code> file in your cloned repository</h2>
+<p>Change the current directory on your Paperspace machine to the Hugging Face cloned repository using the <code>cd</code> command, followed by the path to the repository. Use the <code>!touch</code> command to create the <code>app.py</code> and <code>requirements.txt</code> files. Alternatively, you can navigate to the cloned repository in the ‘Files’ tab and manually create the <code>app.py</code> and <code>requirements.txt</code> files by clicking on the ‘New File’ icon and entering the desired file names:</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#cd model_tutorial</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#!touch app.py</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#!touch requirements.txt</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/Step 4-01.png" class="img-fluid"></p>
+</section>
+<section id="modify-and-add-the-following-code-to-app.py" class="level2">
+<h2 class="anchored" data-anchor-id="modify-and-add-the-following-code-to-app.py">Modify and add the following code to <code>app.py</code></h2>
+<p>The following code was adapted from Tanishq Abraham’s tutorial “Gradio + Hugging Face Spaces” (<a href="https://tmabraham.github.io/blog/gradio_hf_spaces_tutorial"><strong>https://tmabraham.github.io/blog/gradio_hf_spaces_tutorial</strong></a>). Make sure to edit the variables to fit the specifics of your model before pasting it. Credit goes to Tanishq Abraham for the original code.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#import gradio as gr</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#from fastai.vision.all import *</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#import skimage</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#def get_y(o): return [parent_label(o)]</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#learn = load_learner('model.pkl')</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#labels = learn.dls.vocab</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#def predict(img):</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">#img = PILImage.create(img)</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">#pred,pred_idx,probs = learn.predict(img)</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">#return {labels[i]: float(probs[i]) for i in range(len(labels))}</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#title = "Insert Your Model Title"</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#description = "Provide a Description of What Your Model Does"</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">#interpretation='default'</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#enable_queue=True</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#gr.Interface(fn=predict,inputs=gr.inputs.Image(shape=(512, 512)),outputs=gr.outputs.Label(num_top_classes=3),title=title,description=description,interpretation=interpretation,enable_queue=enable_queue).launch()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="add-the-following-code-to-requirements.txt" class="level2">
+<h2 class="anchored" data-anchor-id="add-the-following-code-to-requirements.txt">Add the following code to <code>requirements.txt</code></h2>
+<p>Navigate to <code>requirements.txt</code> in the cloned repository and paste the following code:</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#fastai</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#scikit-image</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="log-into-git" class="level2">
+<h2 class="anchored" data-anchor-id="log-into-git">Log into git</h2>
+<p>Navigate back to your <code>.ipynb</code> file and input these <code>!git</code> commands (remember to change the email address, username, and password to your account details):</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!git config --global user.email "email@hotmail.com"</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#!git config --global user.name "username"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#!git config --global user.password "password"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="push-your-paperspace-cloned-repository-folder-to-hugging-face" class="level2">
+<h2 class="anchored" data-anchor-id="push-your-paperspace-cloned-repository-folder-to-hugging-face">Push your Paperspace cloned repository folder to Hugging Face</h2>
+<p>Before pushing anything to your Hugging Face space, ensure that the current directory you are working from is the cloned repository folder. You can check which directory you’re currently in using <code>ls</code>. If you’re in the correct directory, input these <code>!git</code> commands to upload your Paperspace model to your Hugging Face space:</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!git add /notebooks/model_tutorial</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#!git commit -m "Add application file"</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#!git push</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And that’s it! You’ll need to wait a few minutes for Hugging Face to build the Gradio web app but after that, your model should be live on Hugging Face and available for anyone to use!</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
